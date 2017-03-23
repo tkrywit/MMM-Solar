@@ -1,13 +1,18 @@
-//Magic Mirror module for displaying Enphase Solar data
+/*
+* Magic Mirror module for displaying Enphase Solar data
+* By Thomas Krywitsky
+* MIT Licensed
+*/
 
 Module.register("MMM-Solar",{
     // Default module config.
     defaults: {
         url: "https://api.enphaseenergy.com/api/v2/systems/",
-        apiKey: "452a5aac149b0fe246999de0455a7575", //Sample API key
+        apiKey: "", //Enter API key
         userId: "4d7a45774e6a41320a", //Sample user ID
 	      systemId: "67", //Sample system
 	      refInterval: 1000 * 60 * 5, //5 minutes
+        fancyHeader: true,
     },
 
     start: function() {
@@ -19,6 +24,10 @@ Module.register("MMM-Solar",{
         this.loaded = false;
         this.getSolarData();
 
+        if (!this.config.fancyHeader) {
+            this.data.header = 'Solar PV';
+        }
+
         var self = this;
         //Schedule updates
         setInterval(function() {
@@ -26,6 +35,8 @@ Module.register("MMM-Solar",{
             self.updateDom();
         }, this.config.refInterval);
     },
+
+
 
     //Import additional CSS Styles
     getStyles: function() {
@@ -61,6 +72,11 @@ Module.register("MMM-Solar",{
     getDom: function() {
 
         var wrapper = document.createElement("div");
+	if (this.config.apiKey === "") {
+	    wrapper.innerHTML = "Requires Enlighten API Key";
+	    return wrapper;
+	}
+
         //Display loading while waiting for API response
         if (!this.loaded) {
       	    wrapper.innerHTML = "Loading...";
@@ -69,20 +85,22 @@ Module.register("MMM-Solar",{
 
         var tb = document.createElement("table");
 
-        var imgDiv = document.createElement("div");
-        var img = document.createElement("img");
-        img.src = "/modules/MMM-Solar/solar_white.png";
+        if (this.config.fancyHeader) {
+            var imgDiv = document.createElement("div");
+            var img = document.createElement("img");
+            img.src = "/modules/MMM-Solar/solar_white.png";
 
-        var sTitle = document.createElement("p");
-        sTitle.innerHTML = "Solar PV";
-        sTitle.className += " thin normal";
-        imgDiv.appendChild(img);
-	      imgDiv.appendChild(sTitle);
+            var sTitle = document.createElement("p");
+            sTitle.innerHTML = "Solar PV";
+            sTitle.className += " thin normal";
+            imgDiv.appendChild(img);
+    	      imgDiv.appendChild(sTitle);
 
-        var divider = document.createElement("hr");
-        divider.className += " dimmed";
-        wrapper.appendChild(imgDiv);
-        wrapper.appendChild(divider);
+            var divider = document.createElement("hr");
+            divider.className += " dimmed";
+            wrapper.appendChild(imgDiv);
+            wrapper.appendChild(divider);
+        }
 
       	for (var i = 0; i < this.results.length; i++) {
         		var row = document.createElement("tr");
