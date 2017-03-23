@@ -12,7 +12,7 @@ Module.register("MMM-Solar",{
         userId: "4d7a45774e6a41320a", //Sample user ID
 	      systemId: "67", //Sample system
 	      refInterval: 1000 * 60 * 5, //5 minutes
-        fancyHeader: true,
+        basicHeader: false,
     },
 
     start: function() {
@@ -24,7 +24,7 @@ Module.register("MMM-Solar",{
         this.loaded = false;
         this.getSolarData();
 
-        if (!this.config.fancyHeader) {
+        if (this.config.basicHeader) {
             this.data.header = 'Solar PV';
         }
 
@@ -72,8 +72,8 @@ Module.register("MMM-Solar",{
     getDom: function() {
 
         var wrapper = document.createElement("div");
-	if (this.config.apiKey === "") {
-	    wrapper.innerHTML = "Requires Enlighten API Key";
+	if (this.config.apiKey === "" || this.config.userId === "" || this.config.systemId === "") {
+	    wrapper.innerHTML = "Missing configuration.";
 	    return wrapper;
 	}
 
@@ -85,7 +85,7 @@ Module.register("MMM-Solar",{
 
         var tb = document.createElement("table");
 
-        if (this.config.fancyHeader) {
+        if (!this.config.basicHeader) {
             var imgDiv = document.createElement("div");
             var img = document.createElement("img");
             img.src = "/modules/MMM-Solar/solar_white.png";
