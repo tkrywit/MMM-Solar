@@ -17,7 +17,7 @@ A Solar Module for MagicMirror2 designed to integrate with an Enphase Solar Syst
 	config: {
 		apiKey: "452a5aac149b0fe246999de0455a7575",
 		userId: "4d7a45774e6a41320a",
-		systemId: 67,
+		systemId: "67",
 	}
  },
 ```
