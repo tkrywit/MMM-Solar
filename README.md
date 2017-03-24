@@ -15,12 +15,14 @@ A Solar Module for MagicMirror2 designed to integrate with an Enphase Solar Syst
     module: 'MMM-Solar',
 	position: 'bottom_left',
 	config: {
-		apiKey: "452a5aac149b0fe246999de0455a7575",
-		userId: "4d7a45774e6a41320a",
-		systemId: "67",
+		apiKey: "################################", //Requires your own API Key
+		userId: "4d7a45774e6a41320a", //Enphase example user
+		systemId: "67", //Enphase example system
 	}
  },
 ```
+**Note:** Only enter your API Key in the `config.js` file. Your API Key is yours alone, _do not_ post or use it elsewhere.
+
 ## Sample
 ![alt text](https://github.com/tkrywit/MMM-Solar/blob/master/AppSample.PNG "Example")
 
