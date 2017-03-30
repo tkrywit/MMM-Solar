@@ -18,8 +18,8 @@ Module.register("MMM-Solar",{
     start: function() {
         Log.info("Starting module: " + this.name);
 
-        this.titles = ["Current Power:", "Daily Power:", "Lifetime Power:", "Active Inverters: ", "Current Status:"];
-	      this.suffixes = ["Watts", "kWh", "mWh", "", ""];
+        this.titles = ["Current Power:", "Daily Energy:", "Lifetime Energy:", "Active Inverters: ", "Current Status:"];
+	      this.suffixes = ["Watts", "kWh", "MWh", "", ""];
 	      this.results = ["Loading", "Loading", "Loading", "Loading", "Loading"];
         this.loaded = false;
         this.getSolarData();
