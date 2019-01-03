@@ -20,6 +20,15 @@ module.exports = NodeHelper.create({
 					var jsonData = JSON.parse(body);
 				        self.sendSocketNotification("SOLAR_DATA", jsonData);
 				}
+				else{
+				   if(error!=null){
+					console.log("api request error ="+ JSON.stringify(error));
+				   }
+				   else{
+					console.log("api response code error ="+ response.statusCode);
+				   }
+				}
+
 			});
 		}
 	},
